@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.env.windows": {
+    "PATH": "${env:JAVA_HOME}\\bin;${env:PATH}"
+  },
+  "java.configuration.updateBuildConfiguration": "interactive"
+}

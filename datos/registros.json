@@ -1,0 +1,20 @@
+[
+  {
+    "identificador": 1,
+    "nombre": "Registro de ejemplo A",
+    "categoria": "General",
+    "activo": true
+  },
+  {
+    "identificador": 2,
+    "nombre": "Registro de ejemplo B",
+    "categoria": "Materiales",
+    "activo": false
+  },
+  {
+    "identificador": 3,
+    "nombre": "Registro de ejemplo C",
+    "categoria": "Servicios",
+    "activo": true
+  }
+]
