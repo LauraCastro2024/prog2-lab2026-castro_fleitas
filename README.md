@@ -1,13 +1,12 @@
-# [Pendiente: nombre del proyecto]
+# Materiales de una biblioteca.
 
 Trabajo de Programación 2 del CeRP del Suroeste, modalidad semipresencial.
 Docente: Domingo Pérez. Año: 2026.
 
 ## Integrantes
 
-- [Pendiente: nombre completo del primer integrante].
-- [Pendiente: nombre completo del segundo integrante].
-- [Solo si corresponde: nombre completo del tercer integrante].
+- María Laura Castro Bazán.
+- Camila Daniela Fleitas Pérez.
 
 ## Estado del proyecto
 
