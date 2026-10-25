@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import modelo.Registro;
+import modelo.Material;
 
 public class VentanaPrincipal extends JFrame {
     private final JTextField campoIdentificador = new JTextField(10);
@@ -31,7 +31,8 @@ public class VentanaPrincipal extends JFrame {
     private final JButton botonLimpiar = new JButton("Limpiar");
     private final JButton botonGuardar = new JButton("Guardar");
     private final DefaultTableModel modeloTabla = new DefaultTableModel(
-            new String[] {"Identificador", "Nombre", "Categoria", "Activo"}, 0) {
+            new String[] {"Id", "Título", "Autor / editorial", "Tipo", "Ejemplares",
+    "Prestados", "Disponibles", "Estado", "Préstamo"}, 0) {
         @Override
         public boolean isCellEditable(int fila, int columna) {
             return false;
@@ -77,15 +78,20 @@ public class VentanaPrincipal extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void mostrarRegistros(List<Registro> registros) {
+    public void mostrarRegistros(List<Material> registros) {
         modeloTabla.setRowCount(0);
-        for (Registro registro : registros) {
+        for (Material registro : registros) {
             modeloTabla.addRow(new Object[] {
-                registro.getIdentificador(),
-                registro.getNombre(),
-                registro.getCategoria(),
-                registro.isActivo() ? "Si" : "No"
-            });
+    registro.getIdentificador(),
+    registro.getTitulo(),
+    registro.getAutor(),
+    registro.getTipo(),
+    registro.getEjemplaresTotales(),
+    registro.getEjemplaresPrestados(),
+    registro.getEjemplaresDisponibles(),
+    registro.getEstado().getDescripcion(),
+    registro.isSoloEnSala() ? "Solo en sala" : "A domicilio"
+});
         }
     }
 

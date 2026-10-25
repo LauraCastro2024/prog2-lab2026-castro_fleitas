@@ -1,20 +1,35 @@
 [
   {
     "identificador": 1,
-    "nombre": "Registro de ejemplo A",
-    "categoria": "General",
-    "activo": true
+    "titulo": "Informática y educación: un desafío para todos",
+    "autor": "Miriam Gregori",
+    "tipo": "Libro",
+    "ejemplaresTotales": 12,
+    "ejemplaresPrestados": 4,
+    "estado": "BUENO",
+    "soloEnSala": false,
+    "observaciones": "Informática-Educación."
   },
   {
     "identificador": 2,
-    "nombre": "Registro de ejemplo B",
-    "categoria": "Materiales",
-    "activo": false
+    "titulo": "Diccionario de la lengua española",
+    "autor": "Real Academia Española",
+    "tipo": "Diccionario",
+    "ejemplaresTotales": 3,
+    "ejemplaresPrestados": 0,
+    "estado": "BUENO",
+    "soloEnSala": true,
+    "observaciones": "Material de consulta en sala."
   },
   {
     "identificador": 3,
-    "nombre": "Registro de ejemplo C",
-    "categoria": "Servicios",
-    "activo": true
+    "titulo": "América. Mapa Físico-Político",
+    "autor": "Amauta",
+    "tipo": "Mapa",
+    "ejemplaresTotales": 2,
+    "ejemplaresPrestados": 0,
+    "estado": "DETERIORADO",
+    "soloEnSala": true,
+    "observaciones": "Rotura en las esquinas."
   }
 ]

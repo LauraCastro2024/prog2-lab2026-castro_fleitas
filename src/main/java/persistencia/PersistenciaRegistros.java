@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import modelo.Registro;
+import modelo.Material;
 
 public class PersistenciaRegistros {
     private final Path archivo;
@@ -28,14 +28,15 @@ public class PersistenciaRegistros {
                 .create();
     }
 
-    public List<Registro> leer() throws IOException {
+    public List<Material> leer() throws IOException {
         try (Reader lector = Files.newBufferedReader(archivo, StandardCharsets.UTF_8)) {
-            Registro[] registros = gson.fromJson(lector, Registro[].class);
+            Material[] registros = gson.fromJson(lector, Material[].class);
             if (registros == null) {
                 throw new IOException("El archivo debe contener un arreglo JSON, aunque este vacio.");
             }
-            for (Registro registro : registros) {
-                if (registro == null || registro.getNombre() == null || registro.getCategoria() == null) {
+            for (Material registro : registros) {
+                if (registro == null || registro.getTitulo() == null || registro.getTipo() == null
+        || registro.getEstado() == null) {
                     throw new IOException("El archivo contiene un registro incompleto.");
                 }
             }
@@ -47,7 +48,7 @@ public class PersistenciaRegistros {
         }
     }
 
-    public void escribir(List<Registro> registros) throws IOException {
+    public void escribir(List<Material> registros) throws IOException {
         Path carpeta = archivo.toAbsolutePath().getParent();
         Files.createDirectories(carpeta);
         try (Writer escritor = Files.newBufferedWriter(archivo, StandardCharsets.UTF_8)) {

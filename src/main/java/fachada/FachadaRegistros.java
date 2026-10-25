@@ -3,12 +3,12 @@ package fachada;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Registro;
+import modelo.Material;
 import persistencia.PersistenciaRegistros;
 
 public class FachadaRegistros {
     private final PersistenciaRegistros persistencia;
-    private List<Registro> registros;
+    private List<Material> registros;
     private boolean cargaCorrecta;
 
     public FachadaRegistros(PersistenciaRegistros persistencia) {
@@ -22,7 +22,7 @@ public class FachadaRegistros {
         cargaCorrecta = true;
     }
 
-    public List<Registro> listarRegistros() {
+    public List<Material> listarRegistros() {
         return new ArrayList<>(registros);
     }
 
