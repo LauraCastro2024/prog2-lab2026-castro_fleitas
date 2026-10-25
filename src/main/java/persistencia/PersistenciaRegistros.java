@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import modelo.Material;
+import modelo.ValidacionException;
 
 public class PersistenciaRegistros {
     private final Path archivo;
@@ -39,6 +40,12 @@ public class PersistenciaRegistros {
         || registro.getEstado() == null) {
                     throw new IOException("El archivo contiene un registro incompleto.");
                 }
+                 try {
+                    registro.validar();
+                } catch (ValidacionException e) {
+                    throw new IOException("El material " + registro.getIdentificador()
+                            + " no es válido: " + e.getMessage());
+                }   
             }
             return new ArrayList<>(Arrays.asList(registros));
         } catch (NoSuchFileException e) {

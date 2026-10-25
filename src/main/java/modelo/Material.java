@@ -28,6 +28,57 @@ public class Material {
         this.soloEnSala = soloEnSala;
         this.observaciones = observaciones;
     }
+        public void validar() throws ValidacionException {
+        // Validación 1: el título es obligatorio.
+        if (titulo == null || titulo.trim().isEmpty()) {
+            throw new ValidacionException("El título es obligatorio.");
+        }
+        if (tipo == null || !esTipoValido(tipo)) {
+            throw new ValidacionException("Debe seleccionar un tipo de material válido.");
+        }
+        if (estado == null) {
+            throw new ValidacionException("Debe indicar el estado de conservación.");
+        }
+
+        // Validación 2: las cantidades de ejemplares deben ser coherentes.
+        if (ejemplaresTotales < 1) {
+            throw new ValidacionException("La biblioteca debe tener al menos un ejemplar.");
+        }
+        if (ejemplaresPrestados < 0) {
+            throw new ValidacionException("Los ejemplares prestados no pueden ser negativos.");
+        }
+        if (ejemplaresPrestados > ejemplaresTotales) {
+            throw new ValidacionException("No puede haber más ejemplares prestados ("
+                    + ejemplaresPrestados + ") que ejemplares en la biblioteca ("
+                    + ejemplaresTotales + ").");
+        }
+
+        // Validación 3, propia del problema: un material deteriorado no se presta.
+        if (estado == EstadoConservacion.DETERIORADO && !soloEnSala) {
+            throw new ValidacionException("Un material deteriorado no se puede prestar a domicilio.\n"
+                    + "Marque la casilla \"Solo para consulta en sala\".");
+        }
+        if (soloEnSala && ejemplaresPrestados > 0) {
+            throw new ValidacionException("Un material solo para consulta en sala "
+                    + "no puede tener ejemplares prestados.");
+        }
+    }
+
+    public void verificarQueSePuedeEliminar() throws ValidacionException {
+        if (ejemplaresPrestados > 0) {
+            throw new ValidacionException("No se puede eliminar \"" + titulo + "\" porque tiene "
+                    + ejemplaresPrestados + " ejemplar(es) prestado(s).");
+        }
+    }
+
+    public static boolean esTipoValido(String tipo) {
+        for (String tipoValido : TIPOS) {
+            if (tipoValido.equals(tipo)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getEjemplaresDisponibles() {
         return ejemplaresTotales - ejemplaresPrestados;
