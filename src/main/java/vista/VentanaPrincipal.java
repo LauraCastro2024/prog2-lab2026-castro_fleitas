@@ -70,7 +70,7 @@ public class VentanaPrincipal extends JFrame {
 
     public VentanaPrincipal() {
         super("Biblioteca del liceo - Catálogo de materiales");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
         // El identificador lo asigna el sistema: el usuario no lo escribe.
