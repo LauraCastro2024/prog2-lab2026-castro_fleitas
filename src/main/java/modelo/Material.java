@@ -28,7 +28,13 @@ public class Material {
         this.soloEnSala = soloEnSala;
         this.observaciones = observaciones;
     }
-        public void validar() throws ValidacionException {
+        /** Crea una copia de otro material, pero con el identificador indicado. */
+    public Material(int identificador, Material otro) {
+        this(identificador, otro.titulo, otro.autor, otro.tipo, otro.ejemplaresTotales,
+                otro.ejemplaresPrestados, otro.estado, otro.soloEnSala,
+                otro.observaciones);
+    }    
+    public void validar() throws ValidacionException {
         // Validación 1: el título es obligatorio.
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new ValidacionException("El título es obligatorio.");
