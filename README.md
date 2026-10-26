@@ -202,9 +202,14 @@ realizaron con un programa temporal. La interfaz gráfica no se volvió a
 verificar como parte de esta actualización.
 
 | Acción | Resultado esperado | Resultado obtenido en la base |
+|---|---|---|
 | Registrar "La Tregua" con 5 ejemplares y 1 prestado. | Aparece en el listado con identificador 4 y 4 disponibles. | "Material registrado con el identificador 4". |
 |Cambiar título de "La Tregua" “La Tregua (edición escolar)” | Conserva el identificador 4 y no aparece duplicada. | "Material 4 modificado" |
 | Eliminar el Diccionario y responder No. | Se cancela y el material se conserva.| "Eliminación cancelada. El material se conserva".|
+| Eliminar un material de prueba y responder Sí. | Se elimina solo ese material. | "Material eliminado". |
+| Buscar "gregori" y filtrar por tipo Mapa. | Muestra solo los materiales que coinciden. | No aparece ya que es de tipo Libro |
+| Limpiar el formulario. | Los campos quedan vacíos, listos para un material nuevo. | Los campos aparecen vacíos |
+| Cerrar y volver a abrir la aplicación. | Se conservan los cambios guardados en el JSON. | Se conservan los cambios. |
 | Compilar mediante Maven Wrapper en Windows. | Compilación sin errores. | Correcto. |
 | Abrir la aplicación desde la raíz. | Mostrar los tres registros del JSON. | Correcto. |
 | Pulsar los seis botones. | Mostrar avisos de funcionalidad pendiente sin modificar datos. | Correcto. |
