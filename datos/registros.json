@@ -31,5 +31,16 @@
     "estado": "DETERIORADO",
     "soloEnSala": true,
     "observaciones": "Rotura en las esquinas."
+  },
+  {
+    "identificador": 4,
+    "titulo": "La Tregua (edición escolar)",
+    "autor": "Mario Benedetti",
+    "tipo": "Libro",
+    "ejemplaresTotales": 5,
+    "ejemplaresPrestados": 1,
+    "estado": "BUENO",
+    "soloEnSala": false,
+    "observaciones": ""
   }
 ]
