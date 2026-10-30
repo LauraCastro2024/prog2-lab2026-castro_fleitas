@@ -68,16 +68,15 @@ infraestructura; falta integrar el guardado con las operaciones.
 
 ## Componentes gráficos
 
-La base incluye JTextField, JComboBox, JCheckBox, JButton y JTable.
-JLabel y los contenedores de apoyo no cuentan para alcanzar el mínimo solicitado.
+## Componentes gráficos
 
-Los tres tipos nuevos todavía no fueron elegidos ni implementados:
+La base incluye `JTextField`, `JComboBox`, `JCheckBox`, `JButton` y `JTable`. Se conservaron todos los componentes iniciales y se incorporaron tres tipos nuevos con una función real dentro del sistema:
 
-| Componente nuevo | Dato o acción real que permitirá gestionar | Estado |
+| Componente nuevo | Dato o acción real que permite gestionar | Estado |
 | --- | --- | --- |
-| Pendiente de elegir. | Pendiente de definir. | Sin implementar. |
-| Pendiente de elegir. | Pendiente de definir. | Sin implementar. |
-| Pendiente de elegir. | Pendiente de definir. | Sin implementar. |
+| `JSpinner` (`SpinnerNumberModel`) | Ingresar y modificar las cantidades de ejemplares totales y prestados (`ejemplaresTotales` y `ejemplaresPrestados`). | Implementado. |
+| `JRadioButton` con `ButtonGroup` | Seleccionar de forma exclusiva el estado de conservación del material (`Bueno`, `Regular`, `Deteriorado`). | Implementado. |
+| `JTextArea` con `JScrollPane` | Escribir y visualizar observaciones adicionales o detalles sobre el estado físico del material. | Implementado. |
 
 ## Organización de paquetes y recorrido de una operación
 
