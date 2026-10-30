@@ -131,9 +131,6 @@ git clone https://github.com/USUARIO/REPOSITORIO.git
 cd REPOSITORIO
 ```
 
-El nombre del repositorio debe seguir el formato indicado en la consigna:
-`prog2-lab2026-apellido1_apellido2`.
-
 Ejecutar los siguientes comandos desde la raíz del proyecto, donde se
 encuentra [pom.xml](pom.xml).
 
@@ -272,7 +269,7 @@ de nuestra entrega.
 | Integrante | Aportes realizados |
 | --- | --- |
 | Laura Castro. | Creación del repositorio y configuración del entorno. Modelo (clases Material, EstadoConservacion y ValidacionException), validaciones, adaptación de la persistencia y fachada. Pruebas de validaciones y de archivos. |
-| Pendiente: segundo integrante. | Pendiente de registrar aportes concretos. |
+| Camila Fleitas | Vista (formulario, JSpinner, JRadioButton, JTextArea, filtro de búsqueda) y controlador (conexión de botones, selección, confirmaciones y mensajes). Pruebas de gestión, búsqueda y conservación de datos. |
 
 Las dos estudiamos la solución completa y participamos en el video donde cada una va a explicar lo que hizo la compañera para demostrar que sabemos lo que estamos haciendo.
 
