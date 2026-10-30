@@ -10,36 +10,50 @@ Docente: Domingo Pérez. Año: 2026.
 
 ## Estado del proyecto
 
-Partimos del prototipo docente de un gestor de registros en Java y Swing,
-organizado con MVC, fachada y persistencia en JSON.
-
-**Actualmente solo está disponible el prototipo.** La ventana muestra tres
-registros de ejemplo del archivo JSON. Los botones Registrar, Modificar,
-Eliminar, Buscar, Limpiar y Guardar muestran un aviso de funcionalidad pendiente.
-Seleccionar una fila todavía no carga sus datos en el formulario.
-
-Los apartados marcados como **Pendiente** deben completarse con nuestro
-desarrollo real antes de entregar. La [consigna del laboratorio](docs/letra.md)
+Partimos del prototipo docente de un gestor de registros en Java y Swing, organizado con MVC, fachada y persistencia en JSON.
+Adaptamos el prototipo para gestionar el catálogo de materiales de la biblioteca de un liceo. Implementamos el registro, la selección y modificación, la eliminación con confirmación, la búsqueda con filtro por tipo, la limpieza del formulario y el guardado en JSON.
+La [consigna del laboratorio](docs/letra.md)
 detalla los requisitos.
 
 ## Problema y destinatarios
 
-**Pendiente de definir:** qué problema abordamos, en qué contexto se presenta
-y quiénes utilizarán la aplicación.
+Algunas bibliotecas de liceo llevan el inventario en un cuaderno o en una
+planilla electrónica. Cuando un estudiante pregunta por un libro, el funcionario que lo atiende tiene que revisar esos registros para saber cuántos
+ejemplares hay y cuántos están prestados. Tampoco le resulta fácil saber si un material está deteriorado o si solo se puede consultar en sala.
+Esto ocasiona errores porque se presta un diccionario que no debería salir de la
+biblioteca, o se da de baja un libro que todavía no devolvieron.
+La aplicación está pensada para que la persona encargada de la biblioteca lleve
+el registro de los materiales y su estado, y pueda responder en el momento qué
+está realmente disponible.
 
 ## Utilidad de la solución
 
-**Pendiente de fundamentar:** qué tareas facilitará el sistema y qué ventajas
-ofrecerá a sus destinatarios.
+El catálogo queda en un solo lugar y se conserva cuando se cierra la aplicación. Para cada material se ve cuántos ejemplares hay, cuántos están
+prestados y cuántos quedan disponibles; este último número lo calcula el programa. De esta forma, cuando un estudiante pregunta por un libro, se lo busca por título o autor, o se filtra por tipo, y la respuesta aparece en la tabla.
+La aplicación también evita los errores que describimos antes. No deja anotar más prestados que ejemplares, ni prestar un material deteriorado o de consulta en sala, ni eliminar uno que tiene ejemplares sin devolver. En las
+observaciones se puede dejar anotado el estado de cada material, por ejemplo
+"rotura en las esquinas".
 
 ## Adaptación del modelo y reglas
 
-El modelo inicial contiene registros con identificador, nombre, categoría y
-estado activo.
-
-**Pendiente de implementar y documentar:** qué representará un registro en
-nuestro proyecto, qué atributos agregaremos o cambiaremos y cuáles serán las
-categorías y operaciones propias del problema.
+El modelo inicial contiene registros con identificador, nombre, categoría y estado activo.
+En nuestro proyecto, cada registro es un [Material](src/main/java/modelo/Material.java)
+del catálogo: un título con uno o más ejemplares físicos.
+| Atributo de la base | Atributo en nuestro proyecto |
+| --- | --- |
+| identificador | `identificador`: lo asigna el sistema y no se repite. |
+| nombre | `titulo`: título del material. |
+| categoria | `tipo`: Libro, Revista, Diccionario, Enciclopedia, Mapa o Material audiovisual. |
+| activo | `soloEnSala`: si el material es solo para consulta en sala o se puede llevar a domicilio. |
+| (nuevo) | `autor`: autor o editorial. |
+| (nuevo) | `ejemplaresTotales` y `ejemplaresPrestados`: cantidades de ejemplares. |
+| (nuevo) | `estado`: estado de conservación, con el enum [EstadoConservacion](src/main/java/modelo/EstadoConservacion.java) (Bueno, Regular, Deteriorado). |
+| (nuevo) | `observaciones`: texto libre. |
+ 
+Las validaciones están en el método `validar()` de `Material`. Si una regla no
+se cumple, se lanza una [ValidacionException](src/main/java/modelo/ValidacionException.java)
+con el motivo; la vista muestra el mensaje y el formulario conserva los datos
+para corregirlos.
 
 | Validación requerida | Regla de nuestro proyecto | Estado |
 | --- | --- | --- |
@@ -47,7 +61,7 @@ categorías y operaciones propias del problema.
 | Segunda validación | Pendiente de definir. | Sin implementar. |
 | Tercera validación, propia del problema | Pendiente de definir. | Sin implementar. |
 
-También falta implementar el identificador único, la selección y modificación,
+##También falta implementar el identificador único, la selección y modificación,
 la eliminación con confirmación, la búsqueda, la limpieza del formulario y la
 actualización del listado. La lectura y escritura JSON están disponibles como
 infraestructura; falta integrar el guardado con las operaciones.
@@ -257,11 +271,10 @@ de nuestra entrega.
 
 | Integrante | Aportes realizados |
 | --- | --- |
-| Pendiente: primer integrante. | Pendiente de registrar aportes concretos. |
+| Laura Castro. | Creación del repositorio y configuración del entorno. Modelo (clases Material, EstadoConservacion y ValidacionException), validaciones, adaptación de la persistencia y fachada. Pruebas de validaciones y de archivos. |
 | Pendiente: segundo integrante. | Pendiente de registrar aportes concretos. |
 
-Agregar una tercera fila solamente si corresponde. Todos los integrantes deben
-conocer la solución completa y participar en el video.
+Las dos estudiamos la solución completa y participamos en el video donde cada una va a explicar lo que hizo la compañera para demostrar que sabemos lo que estamos haciendo.
 
 ## Video explicativo
 
