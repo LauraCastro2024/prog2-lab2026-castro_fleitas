@@ -57,9 +57,9 @@ para corregirlos.
 
 | Validación requerida | Regla de nuestro proyecto | Estado |
 | --- | --- | --- |
-| Primera validación | Pendiente de definir. | Sin implementar. |
-| Segunda validación | Pendiente de definir. | Sin implementar. |
-| Tercera validación, propia del problema | Pendiente de definir. | Sin implementar. |
+| Primera validación | **Campo obligatorio:** El título no puede ser nulo ni estar vacío (`titulo.trim().isEmpty()`). | Implementado. |
+| Segunda validación | **Coherencia de ejemplares:** Debe haber al menos 1 ejemplar total en biblioteca, y los ejemplares prestados no pueden ser negativos ni superar la cantidad total de ejemplares. | Implementado. |
+| Tercera validación, propia del problema | **Restricción de préstamos y bajas:** Un material `DETERIORADO` no se puede prestar a domicilio (debe ser "Solo en sala"). Si está marcado como "Solo en sala", no puede tener ejemplares prestados. Además, no se permite eliminar un material si tiene ejemplares pendientes de devolución. | Implementado. |
 
 ##También falta implementar el identificador único, la selección y modificación,
 la eliminación con confirmación, la búsqueda, la limpieza del formulario y la
