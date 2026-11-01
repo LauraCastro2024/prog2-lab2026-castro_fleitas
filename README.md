@@ -1,4 +1,4 @@
-# Materiales de una biblioteca.
+# Materiales de una biblioteca
 
 Trabajo de Programación 2 del CeRP del Suroeste, modalidad semipresencial.
 Docente: Domingo Pérez. Año: 2026.
@@ -23,8 +23,7 @@ ejemplares hay y cuántos están prestados. Tampoco le resulta fácil saber si u
 Esto ocasiona errores porque se presta un diccionario que no debería salir de la
 biblioteca, o se da de baja un libro que todavía no devolvieron.
 La aplicación está pensada para que la persona encargada de la biblioteca lleve
-el registro de los materiales y su estado, y pueda responder en el momento qué
-está realmente disponible.
+el registro de los materiales y su estado, y pueda responder en el momento qué está realmente disponible.
 
 ## Utilidad de la solución
 
@@ -39,6 +38,7 @@ observaciones se puede dejar anotado el estado de cada material, por ejemplo
 El modelo inicial contiene registros con identificador, nombre, categoría y estado activo.
 En nuestro proyecto, cada registro es un [Material](src/main/java/modelo/Material.java)
 del catálogo: un título con uno o más ejemplares físicos.
+
 | Atributo de la base | Atributo en nuestro proyecto |
 | --- | --- |
 | identificador | `identificador`: lo asigna el sistema y no se repite. |
@@ -57,8 +57,7 @@ con el motivo; la vista muestra el mensaje y el formulario conserva los datos pa
 | --- | --- | --- |
 | Primera validación | **Campo obligatorio:** El título no puede ser nulo ni estar vacío (`titulo.trim().isEmpty()`). | Implementado. |
 | Segunda validación | **Coherencia de ejemplares:** Debe haber al menos 1 ejemplar total en biblioteca, y los ejemplares prestados no pueden ser negativos ni superar la cantidad total de ejemplares. | Implementado. |
-| Tercera validación, propia del problema | **Restricción de préstamos y bajas:** Un material `DETERIORADO` no se puede prestar a domicilio, tiene que quedar solo para consulta en sala. 
-Además, un material solo para sala no puede tener ejemplares prestados. | Implementado. |
+| Tercera validación, propia del problema | **Restricción de préstamos y bajas:** Un material `DETERIORADO` no se puede prestar a domicilio, tiene que quedar solo para consulta en sala. Además, un material solo para sala no puede tener ejemplares prestados. | Implementado. |
 
 Además, no se puede eliminar un material con ejemplares prestados
 (`verificarQueSePuedeEliminar()`).
@@ -82,7 +81,9 @@ Otras decisiones:
 
 ## Componentes gráficos
 
-La base incluye `JTextField`, `JComboBox`, `JCheckBox`, `JButton` y `JTable` y los contenedores de apoyo no cuentan para alcanzar el mínimo solicitado. 
+La base incluye `JTextField`, `JComboBox`, `JCheckBox`, `JButton` y `JTable`.
+JLabel y los contenedores de apoyo no cuentan para alcanzar el mínimo solicitado.
+
 Los adaptamos así: JTextField (título, autor y búsqueda), JComboBox (tipo de
 material y filtro por tipo), JCheckBox (solo para consulta en sala), JButton
 (acciones) y JTable (listado y selección).
@@ -225,13 +226,6 @@ verificar como parte de esta actualización.
 
 | Acción | Resultado esperado | Resultado obtenido en la base |
 |---|---|---|
-| Registrar "La Tregua" con 5 ejemplares y 1 prestado. | Aparece en el listado con identificador 4 y 4 disponibles. | "Material registrado con el identificador 4". |
-|Cambiar título de "La Tregua" “La Tregua (edición escolar)” | Conserva el identificador 4 y no aparece duplicada. | "Material 4 modificado" |
-| Eliminar el Diccionario y responder No. | Se cancela y el material se conserva.| "Eliminación cancelada. El material se conserva".|
-| Eliminar un material de prueba y responder Sí. | Se elimina solo ese material. | "Material eliminado". |
-| Buscar "gregori" y filtrar por tipo Mapa. | Muestra solo los materiales que coinciden. | No aparece ya que es de tipo Libro |
-| Limpiar el formulario. | Los campos quedan vacíos, listos para un material nuevo. | Los campos aparecen vacíos |
-| Cerrar y volver a abrir la aplicación. | Se conservan los cambios guardados en el JSON. | Se conservan los cambios. |
 | Compilar mediante Maven Wrapper en Windows. | Compilación sin errores. | Correcto. |
 | Abrir la aplicación desde la raíz. | Mostrar los tres registros del JSON. | Correcto. |
 | Pulsar los seis botones. | Mostrar avisos de funcionalidad pendiente sin modificar datos. | Correcto. |
@@ -246,42 +240,63 @@ Las pruebas se hicieron desde la ventana, en Windows, usando copias del archivo 
 
 | Acción | Resultado esperado | Resultado obtenido |
 | --- | --- | --- |
-| Crear un registro válido. | Aparece en el listado con identificador único. | Pendiente: alta sin implementar. |
-| Incumplir la primera validación. | Informar el motivo y permitir corregir. | Pendiente: validación sin implementar. |
-| Incumplir la segunda validación. | Informar el motivo y permitir corregir. | Pendiente: validación sin implementar. |
-| Incumplir la regla propia del problema. | Rechazar la operación y explicar el motivo. | Pendiente: regla sin implementar. |
-| Modificar un registro seleccionado. | Actualizarlo conservando su identificador, sin duplicarlo. | Pendiente: modificación sin implementar. |
-| Cancelar una eliminación y confirmar otra con un registro de prueba. | Conservar el primero y eliminar solo el confirmado. | Pendiente: eliminación sin implementar. |
-| Aplicar una búsqueda o filtro. | Mostrar únicamente los registros que cumplen el criterio. | Pendiente: búsqueda sin implementar. |
-| Limpiar el formulario. | Dejarlo preparado para una nueva operación. | Pendiente: limpieza sin implementar. |
-| Crear y modificar datos, guardar, cerrar y volver a abrir. | Recuperar los cambios desde el JSON. | Pendiente: guardado sin integrar. |
-| Iniciar sin JSON y con JSON inválido, usando copias de prueba. | Mantener el manejo de errores de la base. | Pendiente: volver a comprobar tras nuestros cambios. |
+| Registrar "La Tregua" con 5 ejemplares y 1 prestado. | Aparece en el listado con identificador 4 y 4 disponibles. | "Material registrado con el identificador 4". |
+|Cambiar título de "La Tregua" “La Tregua (edición escolar)” | Conserva el identificador 4 y no aparece duplicada. | "Material 4 modificado" |
+| Eliminar el Diccionario y responder No. | Se cancela y el material se conserva.| "Eliminación cancelada. El material se conserva".|
+| Eliminar un material de prueba y responder Sí. | Se elimina solo ese material. | "Material eliminado". |
+| Buscar "gregori" y filtrar por tipo Mapa. | Muestra solo los materiales que coinciden. | No aparece ya que es de tipo Libro |
+| Limpiar el formulario. | Los campos quedan vacíos, listos para un material nuevo. | Los campos aparecen vacíos |
+| Cerrar y volver a abrir la aplicación. | Se conservan los cambios guardados en el JSON. | Se conservan los cambios. |
+| Registrar con el título vacío. | Mensaje "El título es obligatorio."; no se registra. | Correcto: mensaje "El título es obligatorio." y no se registró. |
+| Registrar con 2 ejemplares y 5 prestados. | Mensaje indicando que hay más prestados que ejemplares. | Correcto: mensaje "No puede haber más ejemplares prestados (5) que ejemplares en la biblioteca (2)." |
+| Registrar un material "Deteriorado" sin marcar "Solo para consulta en sala". | Mensaje con la regla propia del problema; no se registra. | Correcto: mensaje "Un material deteriorado no se puede prestar a domicilio." y no se registró. |
+| Eliminar "Informática y educación", que tiene 4 ejemplares prestados. | Se rechaza y se explica el motivo. | Correcto: no se eliminó y se informó que tiene 4 ejemplares prestados. |
+| Iniciar sin archivo JSON (con el original respaldado). | Tabla vacía sin error; el primer registro recibe el identificador 1 y crea el archivo. | Correcto: la tabla abrió vacía, el primer material recibió el identificador 1 y se creó el archivo. |
+| Iniciar con un JSON inválido (copia de prueba). | Informa el error, no permite cambios y no modifica el archivo. | Correcto: mostró el error sin cerrarse y el archivo no se modificó. |
 
-Las limitaciones actuales son las funciones pendientes descritas en este
-documento. **Pendiente:** actualizar esta sección con las limitaciones reales
-de nuestra entrega.
+Limitaciones conocidas:
+ 
+- No registra préstamos individuales (quién se llevó cada ejemplar ni fechas
+  de devolución), solo la cantidad de ejemplares prestados.
+- Si se elimina el material con el identificador más alto, ese número puede
+  volver a asignarse a un material nuevo, aunque nunca coincide con el de uno
+  existente.
+- La búsqueda distingue tildes: "gregori" encuentra "Gregori", pero "america"
+  no encuentra "América".
+- Está pensada para un solo usuario a la vez.
+- No hay pruebas automatizadas.
 
 ## Procedencia del código y recursos utilizados
 
-**Base docente:** estructura MVC con fachada, modelo genérico, ventana inicial,
-  avisos de funcionalidad pendiente, carga de ejemplo, infraestructura JSON y
+- **Base docente:** estructura MVC con fachada, modelo genérico, ventana inicial, avisos de funcionalidad pendiente, carga de ejemplo, infraestructura JSON y
   configuración Maven con Wrapper.
-**Trabajo de nuestro equipo:** pendiente de implementar y detallar,
-  identificando qué agregamos y qué modificamos.
-**Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
+- **Trabajo de nuestro equipo:**
+  - Modelo: la clase `Registro` se transformó en `Material`; se agregaron el enum `EstadoConservacion`, la excepción `ValidacionException`, las
+    validaciones y las reglas propias.
+  - Persistencia: adaptada a los nuevos atributos y con validación de los
+    materiales al leer el archivo.
+  - Fachada: operaciones registrar, modificar, eliminar y buscar, asignación del identificador y guardado después de cada cambio.
+  - Vista: formulario nuevo con los tres componentes, tabla con disponibles,
+    filtro por tipo y confirmaciones.
+  - Controlador: conexión de todos los botones, selección en la tabla, manejo
+    de errores y aviso al cerrar.
+  - Datos de ejemplo, configuración de VS Code y este README.
+- **Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
   para la interfaz.
-**Tutoriales, documentación y herramientas de IA utilizados por el equipo:**
-  pendiente de declarar. Indicar los recursos, su uso concreto y las partes
-  correspondientes, o aclarar si no se utilizaron.
+- **Tutoriales, documentación y herramientas de IA utilizados por el equipo:**
+  Durante el proyecto usamos Claude, el asistente de IA de Anthropic. Nos ayudó a configurar Git, el JDK y VS Code para que cada integrante pudiera trabajar desde su propio equipo. También nos sugirió código, que revisamos, probamos y adaptamos a lo que pedía el proyecto.
+  
+  Cada integrante agregó el código de su parte a los archivos, lo compiló y fue corrigiendo los errores a medida que aparecían. Después comprobamos desde la interfaz que la aplicación funcionara. Las pruebas de la tabla las hicimos nosotras en la aplicación, y anotamos los resultados tal como salieron.
 
 ## Aportes de cada integrante
 
 | Integrante | Aportes realizados |
 | --- | --- |
-| Laura Castro. | Creación del repositorio y configuración del entorno. Modelo (clases Material, EstadoConservacion y ValidacionException), validaciones, adaptación de la persistencia y fachada. Pruebas de validaciones y de archivos. |
+| María Laura Castro Bazán | Creación del repositorio y configuración del entorno. Modelo (clases Material, EstadoConservacion y ValidacionException), validaciones, adaptación de la persistencia y fachada. Pruebas de validaciones y de archivos. |
 | Camila Fleitas | Vista (formulario, JSpinner, JRadioButton, JTextArea, filtro de búsqueda) y controlador (conexión de botones, selección, confirmaciones y mensajes). Pruebas de gestión, búsqueda y conservación de datos. |
 
-Las dos estudiamos la solución completa y participamos en el video donde cada una va a explicar lo que hizo la compañera para demostrar que sabemos lo que estamos haciendo.
+Las dos estudiamos la solución completa. En el video, cada una explica su
+propio aporte y comenta también una parte del trabajo de la compañera.
 
 ## Video explicativo
 
