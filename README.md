@@ -50,54 +50,74 @@ del catálogo: un título con uno o más ejemplares físicos.
 | (nuevo) | `estado`: estado de conservación, con el enum [EstadoConservacion](src/main/java/modelo/EstadoConservacion.java) (Bueno, Regular, Deteriorado). |
 | (nuevo) | `observaciones`: texto libre. |
  
-Las validaciones están en el método `validar()` de `Material`. Si una regla no
-se cumple, se lanza una [ValidacionException](src/main/java/modelo/ValidacionException.java)
-con el motivo; la vista muestra el mensaje y el formulario conserva los datos
-para corregirlos.
+Las validaciones están en el método `validar()` de `Material`. Si una regla no se cumple, se lanza una [ValidacionException](src/main/java/modelo/ValidacionException.java)
+con el motivo; la vista muestra el mensaje y el formulario conserva los datos para corregirlos.
 
 | Validación requerida | Regla de nuestro proyecto | Estado |
 | --- | --- | --- |
 | Primera validación | **Campo obligatorio:** El título no puede ser nulo ni estar vacío (`titulo.trim().isEmpty()`). | Implementado. |
 | Segunda validación | **Coherencia de ejemplares:** Debe haber al menos 1 ejemplar total en biblioteca, y los ejemplares prestados no pueden ser negativos ni superar la cantidad total de ejemplares. | Implementado. |
-| Tercera validación, propia del problema | **Restricción de préstamos y bajas:** Un material `DETERIORADO` no se puede prestar a domicilio (debe ser "Solo en sala"). Si está marcado como "Solo en sala", no puede tener ejemplares prestados. Además, no se permite eliminar un material si tiene ejemplares pendientes de devolución. | Implementado. |
+| Tercera validación, propia del problema | **Restricción de préstamos y bajas:** Un material `DETERIORADO` no se puede prestar a domicilio, tiene que quedar solo para consulta en sala. 
+Además, un material solo para sala no puede tener ejemplares prestados. | Implementado. |
 
-##También falta implementar el identificador único, la selección y modificación,
-la eliminación con confirmación, la búsqueda, la limpieza del formulario y la
-actualización del listado. La lectura y escritura JSON están disponibles como
-infraestructura; falta integrar el guardado con las operaciones.
+Además, no se puede eliminar un material con ejemplares prestados
+(`verificarQueSePuedeEliminar()`).
+ 
+Otras decisiones:
+ 
+- **Identificador único:** la fachada asigna el mayor identificador existente
+  más uno. El campo del formulario no es editable.
+- **Modificación sin duplicados:** se reemplaza el material que está en la
+  misma posición de la lista; no se agrega uno nuevo.
+- **Eliminación:** pide confirmación mostrando el título del material.
+- **Búsqueda:** por texto en el título o el autor, sin distinguir mayúsculas,
+  combinable con un filtro por tipo. Eligiendo "Todos los tipos" se vuelve a
+  ver la lista completa.
+- **Limpieza del formulario:** el botón Limpiar deja los campos vacíos y quita
+  la selección de la tabla.
+- **Guardado:** cada registro, modificación o eliminación se guarda
+  automáticamente en el JSON. El botón Guardar permite reintentar si una
+  escritura falló, y al cerrar se pide confirmación si quedaron cambios sin
+  guardar.
 
 ## Componentes gráficos
 
-## Componentes gráficos
+La base incluye `JTextField`, `JComboBox`, `JCheckBox`, `JButton` y `JTable` y los contenedores de apoyo no cuentan para alcanzar el mínimo solicitado. 
+Los adaptamos así: JTextField (título, autor y búsqueda), JComboBox (tipo de
+material y filtro por tipo), JCheckBox (solo para consulta en sala), JButton
+(acciones) y JTable (listado y selección).
 
-La base incluye `JTextField`, `JComboBox`, `JCheckBox`, `JButton` y `JTable`. Se conservaron todos los componentes iniciales y se incorporaron tres tipos nuevos con una función real dentro del sistema:
+Se conservaron todos los componentes iniciales y se incorporaron tres tipos nuevos con una función real dentro del sistema:
 
 | Componente nuevo | Dato o acción real que permite gestionar | Estado |
 | --- | --- | --- |
-| `JSpinner` (`SpinnerNumberModel`) | Ingresar y modificar las cantidades de ejemplares totales y prestados (`ejemplaresTotales` y `ejemplaresPrestados`). | Implementado. |
-| `JRadioButton` con `ButtonGroup` | Seleccionar de forma exclusiva el estado de conservación del material (`Bueno`, `Regular`, `Deteriorado`). | Implementado. |
-| `JTextArea` con `JScrollPane` | Escribir y visualizar observaciones adicionales o detalles sobre el estado físico del material. | Implementado. |
+| JSpinner | Cantidad de ejemplares en la biblioteca y de ejemplares prestados. Con ellos se calculan los disponibles y se aplica la segunda validación. | Implementado. |
+| JRadioButton | Estado de conservación: Bueno, Regular o Deteriorado. Son opciones excluyentes gracias a un `ButtonGroup`, y "Deteriorado" participa en la regla propia. | Implementado. |
+| JTextArea | Observaciones sobre el material, que se guardan en el JSON. | Implementado. |
 
 ## Organización de paquetes y recorrido de una operación
 
 | Paquete o carpeta | Responsabilidad |
 | --- | --- |
 | [app](src/main/java/app) | Iniciar la aplicación y conectar los objetos. |
-| [modelo](src/main/java/modelo) | Representar los registros y, al completar el proyecto, sus reglas. |
+| [modelo](src/main/java/modelo) | Representar los materiales y sus reglas (`Material`, `EstadoConservacion`, `ValidacionException`). |
 | [vista](src/main/java/vista) | Mostrar la interfaz Swing y los mensajes. |
 | [controlador](src/main/java/controlador) | Recibir eventos y coordinar las acciones mediante la fachada. |
 | [fachada](src/main/java/fachada) | Ofrecer operaciones y coordinar el modelo con la persistencia. |
 | [persistencia](src/main/java/persistencia) | Leer y escribir JSON, sin depender de Swing. |
 | [datos](datos) | Contener el archivo JSON; no es un paquete Java. |
 
-El recorrido que ya funciona es la carga inicial:
-[Aplicacion](src/main/java/app/Aplicacion.java) conecta los objetos;
-el controlador solicita la carga a la fachada; la fachada utiliza la
-persistencia para leer el archivo; y el controlador entrega los registros a la
-vista para mostrarlos en la tabla. La vista no lee ni escribe archivos.
+El recorrido de la carga inicial:
+[Aplicacion](src/main/java/app/Aplicacion.java) conecta los objetos; el controlador solicita la carga a la fachada; la fachada utiliza la persistencia para leer el archivo; y el controlador entrega los registros a la vista para mostrarlos en la tabla. La vista no lee ni escribe archivos.
 
-**Pendiente de documentar:** el recorrido completo de una operación de gestión
-implementada por nuestro equipo.
+**Recorrido de la operación Registrar, implementada por nuestro equipo:**
+ 
+1. El usuario completa el formulario y pulsa **Registrar**.
+2. `ControladorRegistros.registrar()` recibe el evento y le pide a la vista los datos con `obtenerDatosFormulario()`, que arma un `Material`.
+3. El controlador llama a `FachadaRegistros.registrar(material)`.
+4. La fachada comprueba que la carga inicial fue correcta y llama a `material.validar()` (modelo). Si una regla no se cumple, se lanza `ValidacionException` y no se agrega nada.
+5. Si es válido, la fachada asigna el siguiente identificador, agrega una copia del material a la lista y llama a `PersistenciaRegistros.escribir()`, que guarda la lista en `datos/registros.json`.
+6. El controlador actualiza la tabla, limpia el formulario y muestra la confirmación con el identificador asignado. Si hubo un error, lo muestra con `mostrarError()` sin cerrar la aplicación.
 
 ## Instrucciones de ejecución
 
@@ -122,16 +142,13 @@ Comprobar que `java -version`, `javac -version` y `.\mvnw.cmd -version`
 
 ### Descargar el proyecto
 
-**Pendiente:** reemplazar `USUARIO` y `REPOSITORIO` por los datos del repositorio
-del equipo antes de entregar.
-
 ```text
-git clone https://github.com/USUARIO/REPOSITORIO.git
-cd REPOSITORIO
+git clone https://github.com/LauraCastro2024/prog2-lab2026-castro_fleitas.git
+
+cd prog2-lab2026-castro_fleitas
 ```
 
-Ejecutar los siguientes comandos desde la raíz del proyecto, donde se
-encuentra [pom.xml](pom.xml).
+Ejecutar los siguientes comandos desde la raíz del proyecto, donde se encuentra [pom.xml](pom.xml).
 
 ### Windows: PowerShell
 
@@ -172,10 +189,7 @@ proyecto Maven. También se puede ejecutar el método `main` de
 [Aplicacion](src/main/java/app/Aplicacion.java), con la raíz del proyecto como
 directorio de trabajo.
 En `Java: Configure Java Runtime`, seleccionar un JDK 25 para este proyecto.
-La configuración local de VS Code selecciona el JDK 25 instalado en
-`%USERPROFILE%\.jdks\jdk-25.0.4.1+1` para las terminales de Windows y el
-proyecto Java, sin modificar el `PATH` del sistema. Si se utiliza otra
-instalación, ajustar las rutas en `.vscode/settings.json`.
+Modificamos `.vscode/settings.json` para que la terminal de VS Code use el JDK indicado por `JAVA_HOME` en cada computadora, en lugar de una ruta fija.
 
 La biblioteca de persistencia es Gson 2.13.2. Está declarada, junto con los
 complementos de compilación y ejecución, en [pom.xml](pom.xml).
@@ -185,14 +199,12 @@ complementos de compilación y ejecución, en [pom.xml](pom.xml).
 El archivo de ejemplo es [datos/registros.json](datos/registros.json).
 La ruta es relativa al directorio desde el cual se inicia la aplicación.
 
-Si el archivo no existe, la aplicación inicia con una lista vacía. Si es
-inválido o ilegible, muestra un error y mantiene la ventana abierta sin
-reemplazarlo. La fachada bloquea el guardado cuando la carga no fue correcta.
-Los errores de escritura se propagan al controlador; falta integrar el guardado
-y sus mensajes con las operaciones del equipo.
+Si el archivo no existe, la aplicación inicia con una lista vacía y lo crea al registrar el primer material. Si es inválido o ilegible (JSON mal escrito, datos incompletos o materiales que no cumplen las reglas), muestra un error y
+mantiene la ventana abierta sin reemplazarlo. La fachada bloquea el guardado cuando la carga no fue correcta.
 
-**En el estado actual, ningún botón guarda datos y cerrar la ventana tampoco
-guarda.**
+**Cada registro, modificación o eliminación se guarda automáticamente. Si una
+escritura falla, se muestra el error, se puede reintentar con el botón Guardar
+y, al cerrar la ventana, se pide confirmación si quedaron cambios sin guardar.**
 
 ## Pruebas realizadas y limitaciones conocidas
 
@@ -230,8 +242,7 @@ verificar como parte de esta actualización.
 
 ### Pruebas de nuestro desarrollo
 
-**Pendiente:** realizar estas pruebas y reemplazar los resultados por lo
-realmente observado. No se consideran aprobadas por estar incluidas en la tabla.
+Las pruebas se hicieron desde la ventana, en Windows, usando copias del archivo de datos para los casos de archivo inexistente e inválido.
 
 | Acción | Resultado esperado | Resultado obtenido |
 | --- | --- | --- |
@@ -252,14 +263,14 @@ de nuestra entrega.
 
 ## Procedencia del código y recursos utilizados
 
-- **Base docente:** estructura MVC con fachada, modelo genérico, ventana inicial,
+**Base docente:** estructura MVC con fachada, modelo genérico, ventana inicial,
   avisos de funcionalidad pendiente, carga de ejemplo, infraestructura JSON y
   configuración Maven con Wrapper.
-- **Trabajo de nuestro equipo:** pendiente de implementar y detallar,
+**Trabajo de nuestro equipo:** pendiente de implementar y detallar,
   identificando qué agregamos y qué modificamos.
-- **Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
+**Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
   para la interfaz.
-- **Tutoriales, documentación y herramientas de IA utilizados por el equipo:**
+**Tutoriales, documentación y herramientas de IA utilizados por el equipo:**
   pendiente de declarar. Indicar los recursos, su uso concreto y las partes
   correspondientes, o aclarar si no se utilizaron.
 
@@ -277,11 +288,11 @@ Las dos estudiamos la solución completa y participamos en el video donde cada u
 **Pendiente de crear y publicar. No hay un video disponible todavía.**
 
 Enlace público: **pendiente de agregar**.
+El video dura menos de cinco minutos, con la participación de las dos
+integrantes, y muestra el problema, la aplicación funcionando, una validación,
+los tres componentes nuevos, el recorrido de la operación Registrar y la
+conservación de los datos al cerrar y volver a abrir.
 
-El video debe durar como máximo cinco minutos, incluir la participación de todos
-los integrantes y mostrar el problema, la aplicación, una validación, los tres
-componentes nuevos, el recorrido de una operación y la conservación de datos.
-
-Lo alojaremos en una plataforma externa, sin subir el archivo al repositorio.
-Antes de entregar, comprobaremos que el enlace permita verlo desde una ventana
-privada, sin iniciar sesión ni solicitar permisos.
+Lo alojamos en una plataforma externa, sin subir el archivo al repositorio.
+Comprobamos que el enlace permite verlo desde una ventana privada, sin iniciar
+sesión ni solicitar permisos.
