@@ -283,12 +283,12 @@ Limitaciones conocidas:
   - Datos de ejemplo, configuración de VS Code y este README.
 - **Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
   para la interfaz.
-- **Tutoriales, documentación y herramientas de IA utilizados por el equipo:**
-  Durante el proyecto usamos Claude, el asistente de IA de Anthropic. Nos ayudó a configurar Git, el JDK y VS Code para que cada integrante pudiera trabajar desde su propio equipo. También nos sugirió código, que revisamos, probamos y adaptamos a lo que pedía el proyecto.
+- **Declaración de uso de Inteligencia Artificial:**
+   Durante el desarrollo del proyecto utilizamos Claude, el asistente de IA de Anthropic, como herramienta de apoyo para organizar ideas y revisar el código.
   
-  Cada integrante agregó el código de su parte a los archivos, lo compiló y fue corrigiendo los errores a medida que aparecían. Después comprobamos desde la interfaz que la aplicación funcionara. Las pruebas de la tabla las hicimos nosotras en la aplicación, y anotamos los resultados tal como salieron.
-
 ## Aportes de cada integrante
+
+  El desarrollo se realizó de forma modular: cada integrante incorporó y compiló su código, depurando fallos de forma iterativa. La validación final se llevó a cabo a través de la interfaz visual, ejecutando los casos de prueba manualmente en la aplicación y documentando los resultados reales en la tabla correspondiente.
 
 | Integrante | Aportes realizados |
 | --- | --- |
