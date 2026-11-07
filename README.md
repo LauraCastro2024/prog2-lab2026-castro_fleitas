@@ -284,7 +284,9 @@ Limitaciones conocidas:
 - **Bibliotecas:** Gson 2.13.2 para leer y escribir JSON; Swing, incluido en Java,
   para la interfaz.
 - **Declaración de uso de Inteligencia Artificial:**
-   Durante el desarrollo del proyecto utilizamos Claude, el asistente de IA de Anthropic, como herramienta de apoyo para organizar ideas y revisar el código.
+   Durante el desarrollo del proyecto utilizamos Claude, el asistente de IA de Anthropic, como herramienta de apoyo para organizar ideas y revisar el código.También nos explicó cómo trabajar las dos sobre el mismo proyecto, cada una desde su computadora.Partimos del prototipo que nos dio el profesor y lo adaptamos al problema de la biblioteca. Las decisiones sobre el problema, las reglas y los cambios en la aplicación las tomamos nosotras, y revisamos y probamos todo el código que modificamos o agregamos.
+   Para realizar todo el proyecto nos basamos en los materiales de Programación 2 del
+  Prof. Domingo Pérez 
   
 ## Aportes de cada integrante
 
@@ -300,14 +302,15 @@ propio aporte y comenta también una parte del trabajo de la compañera.
 
 ## Video explicativo
 
-**Pendiente de crear y publicar. No hay un video disponible todavía.**
+Enlace público: https://drive.google.com/file/d/1JqNi67NvedoY252gT90Xgo9d4Q8QMBdB/view?usp=sharing
 
-Enlace público: **pendiente de agregar**.
-El video dura menos de cinco minutos, con la participación de las dos
-integrantes, y muestra el problema, la aplicación funcionando, una validación,
-los tres componentes nuevos, el recorrido de la operación Registrar y la
-conservación de los datos al cerrar y volver a abrir.
+El video dura menos de cinco minutos y participamos las dos integrantes, cada una
+explicando su aporte. Muestra:
 
-Lo alojamos en una plataforma externa, sin subir el archivo al repositorio.
-Comprobamos que el enlace permite verlo desde una ventana privada, sin iniciar
-sesión ni solicitar permisos.
+- el problema y la solución;
+- la aplicación funcionando y una validación;
+- los tres componentes nuevos (JSpinner, JRadioButton y JTextArea);
+- el recorrido de la operación Registrar por MVC, fachada y persistencia;
+- la conservación de los datos al cerrar y volver a abrir la aplicación.
+
+El video está alojado en Google Drive, con acceso para cualquier persona que tenga el enlace, y no se subió al repositorio. Comprobamos que se puede ver desde una ventana privada, sin iniciar sesión ni solicitar permisos.
