@@ -241,7 +241,7 @@ Las pruebas se hicieron desde la ventana, en Windows, usando copias del archivo 
 | Acción | Resultado esperado | Resultado obtenido |
 | --- | --- | --- |
 | Registrar "La Tregua" con 5 ejemplares y 1 prestado. | Aparece en el listado con identificador 4 y 4 disponibles. | "Material registrado con el identificador 4". |
-|Cambiar título de "La Tregua" “La Tregua (edición escolar)” | Conserva el identificador 4 y no aparece duplicada. | "Material 4 modificado" |
+|Cambiar título de "La Tregua" a “La Tregua (edición escolar)” | Conserva el identificador 4 y no aparece duplicada. | "Material 4 modificado" |
 | Eliminar el Diccionario y responder No. | Se cancela y el material se conserva.| "Eliminación cancelada. El material se conserva".|
 | Eliminar un material de prueba y responder Sí. | Se elimina solo ese material. | "Material eliminado". |
 | Buscar "gregori" y filtrar por tipo Mapa. | Muestra solo los materiales que coinciden. | No aparece ya que es de tipo Libro |
@@ -298,7 +298,7 @@ Limitaciones conocidas:
 | Camila Fleitas | Vista (formulario, JSpinner, JRadioButton, JTextArea, filtro de búsqueda) y controlador (conexión de botones, selección, confirmaciones y mensajes). Pruebas de gestión, búsqueda y conservación de datos. |
 
 Las dos estudiamos la solución completa. En el video, cada una explica su
-propio aporte y comenta también una parte del trabajo de la compañera.
+propio aporte y al final comenta algo del trabajo de la otra.
 
 ## Video explicativo
 
@@ -307,10 +307,10 @@ Enlace público: https://drive.google.com/file/d/1JqNi67NvedoY252gT90Xgo9d4Q8QMB
 El video dura menos de cinco minutos y participamos las dos integrantes, cada una
 explicando su aporte. Muestra:
 
-- el problema y la solución;
-- la aplicación funcionando y una validación;
-- los tres componentes nuevos (JSpinner, JRadioButton y JTextArea);
-- el recorrido de la operación Registrar por MVC, fachada y persistencia;
-- la conservación de los datos al cerrar y volver a abrir la aplicación.
+- El problema y la solución;
+- La aplicación funcionando y una validación;
+- Los tres componentes nuevos (JSpinner, JRadioButton y JTextArea);
+- El recorrido de la operación Registrar por MVC, fachada y persistencia;
+- La conservación de los datos al cerrar y volver a abrir la aplicación.
 
 El video está alojado en Google Drive, con acceso para cualquier persona que tenga el enlace, y no se subió al repositorio. Comprobamos que se puede ver desde una ventana privada, sin iniciar sesión ni solicitar permisos.
